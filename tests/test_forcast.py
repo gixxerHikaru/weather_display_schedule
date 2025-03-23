@@ -110,7 +110,7 @@ def test_func_success(mock_get, capsys):
     }
     mock_get.return_value = mock_response
 
-    func("東京都")
+    func("東京都", True)
     captured = capsys.readouterr()
     assert "東京都(Tokyo)の一週間の天気予報" in captured.out
     assert "2023-10-27: 最高気温20℃, 最低気温10℃, 天気: 晴れ" in captured.out
@@ -118,7 +118,7 @@ def test_func_success(mock_get, capsys):
 @patch("builtins.input", return_value="存在しない都道府県")
 def test_func_invalid_prefecture(mock_input, capsys):
     """正しくない都道府県名が与えられた場合、エラーメッセージが表示されること"""
-    func("存在しない都道府県")
+    func("存在しない都道府県", True)
     captured = capsys.readouterr()
     assert "エラーが発生しました: 正しい都道府県名を入力してください。" in captured.out
     
