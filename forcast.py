@@ -6,13 +6,11 @@ import prefectures_check, prefectures_convert
 #https://www.weatherapi.com/
 WEATHER_API_KEY = os.environ.get("WEATHER_API_KEY")
 
-def func():
+def func(prefecture_jp):
     try:
-        prefecture_jp = input("都道府県を日本語で入力してください:")
         prefectures_check.func(prefecture_jp)
     except ValueError as e:
         print(f"エラーが発生しました: {e}")
-        func()
     else:
         prefecture_en = str(prefectures_convert.func(prefecture_jp))
         url = "http://api.weatherapi.com/v1/forecast.json?key={0}&q={1}&days=7&aqi=no&alerts=no".format(WEATHER_API_KEY, prefecture_en)
@@ -39,4 +37,4 @@ def func():
             print(f"JSONデータの解析に失敗しました: {e}")
 
 if __name__ == '__main__':
-    func()
+    func(prefecture_jp = input("都道府県を日本語で入力してください:"))
