@@ -13,8 +13,6 @@ def forcast_day(day, day_num):
         print(f"エラーが発生しました: {e}")
     else:   
         # 回答表示処理
-        print("直近３日間のあなたの所在地の天気予報です。")
-        print(day + ":" + day_pre_jp)
         forcast.func_day(day_pre_jp, day_num)
     finally:
         print("-" * 60)
