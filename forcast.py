@@ -40,8 +40,7 @@ def display_day(prefecture_jp, prefecture_en, data, day):
     condition = day['day']['condition']['text']
     print(prefecture_jp + "(" + prefecture_en + ")の" + date + "の天気予報")
     print(f"{date}: 最高気温{max_temp}℃, 最低気温{min_temp}℃, 降水確率: {daily_chance_of_rain}, 天気: {condition}")
-    return(f"{date}: 最高気温{max_temp}℃, 最低気温{min_temp}℃, 降水確率: {daily_chance_of_rain}, 天気: {condition}")
-
+    return [max_temp, min_temp, daily_chance_of_rain, condition]
 def func(prefecture_jp, display_option):
     try:
         prefectures_check.func(prefecture_jp)
