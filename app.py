@@ -1,6 +1,6 @@
 import streamlit as st
 import datetime
-import forcast, prefecture_box
+import forcast, prefecture_box, weather_condition_convert as wc_convert
 import pandas as pd
 import numpy as np
 
@@ -30,7 +30,7 @@ if st.button("予報！"):
         max_temp_list.append(result[0])
         min_temp_list.append(result[1])
         daily_chance_of_rain_list.append(result[2])
-        condition_list.append(result[3])
+        condition_list.append(wc_convert.func(result[4]))
     
     # 天気予報テーブル
     df = pd.DataFrame({
