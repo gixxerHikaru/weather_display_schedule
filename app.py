@@ -3,6 +3,8 @@ import datetime
 import forcast, prefecture_box, weather_condition_convert as wc_convert
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
+import japanize_matplotlib
 
 today = str(datetime.datetime.now())[0:10]
 today1 = str(datetime.datetime.now() + datetime.timedelta(days=1))[0:10]
@@ -44,4 +46,33 @@ if st.button("予報！"):
 
     # 天気予報表示
     st.write("予報結果はこちら！")
+
+    # グラフの設定
+    plt.figure(figsize=(12, 6))
+    japanize_matplotlib.japanize()  # 日本語表示を有効にする
+
+    # 最高気温と最低気温の折れ線グラフ
+    ax1 = plt.gca()  # 現在の軸を取得
+    ax1.plot(df['日程'] + '\n' + df['都道府県'], df['最高気温'], marker='o', label='最高気温', color='red')
+    ax1.plot(df['日程'] + '\n' + df['都道府県'], df['最低気温'], marker='o', label='最低気温', color='blue')
+    # ax1.set_xlabel('日程\n都道府県')
+    ax1.set_ylabel('気温 (℃)')
+    ax1.tick_params(axis='y', labelcolor='black')
+
+    # 降水確率の棒グラフ
+    ax2 = ax1.twinx()  # 2つ目のy軸を作成
+    ax2.bar(df['日程'] + '\n' + df['都道府県'], df['降水確率'], alpha=0.5, label='降水確率', color='skyblue')
+    ax2.set_ylabel('降水確率 (%)')
+    ax2.tick_params(axis='y', labelcolor='black')
+
+    # グラフの装飾
+    plt.title('日程別 都道府県別 気温と降水確率')
+    ax1.legend(loc='upper left')
+    ax2.legend(loc='upper right')
+    plt.grid(True)
+    plt.tight_layout()
+
+    # グラフの表示
+    st.pyplot(plt)
+
     st.write(df)
